@@ -43,9 +43,6 @@
     "test:unit": "vitest run --config vite.config.test.ts --mode ${VITE_MODE:-test}",
     "test:coverage": "vitest run --coverage --config vite.config.test.ts --mode ${VITE_MODE:-test}"
   },
-  "dependencies": {
-    "lib0": "^0.2.94"
-  },
   "devDependencies": {
     "@microsoft/eslint-formatter-sarif": "^3.1.0",
     "@types/node": "^18.19.39",
