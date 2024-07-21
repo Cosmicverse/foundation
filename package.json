@@ -61,9 +61,6 @@
     "@typescript-eslint/parser": "^7.16.1",
     "@vitest/coverage-v8": "^1.6.0",
     "eslint": "^8.57.0",
-    "eslint-plugin-yml": "^1.14.0",
-    "ts-node": "^10.9.2",
-    "tslib": "^2.6.3",
-    "typescript": "^5.5.3"
+    "eslint-plugin-yml": "^1.14.0"
   }
 }
