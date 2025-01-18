@@ -17,7 +17,10 @@ export default [
         },
         settings: {
             'import/resolver': {
-                typescript: {},
+                typescript: {
+                    // Resolve using tsconfig.json
+                    project: './tsconfig.json',
+                },
             },
         },
         rules: {

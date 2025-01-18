@@ -35,43 +35,43 @@
  */
 
 import {
-  InferArrayType,
+    InferArrayType,
 } from '@/type-defs'
 
 function validate<T>(data: unknown, ...keys: (keyof T)[]): data is T {
-  if (null === data || 'undefined' === typeof data) {
-    return false
-  }
-
-  if ('object' === typeof data) {
-    for (const k of keys) {
-      if (!(k in data)) {
+    if (null === data || 'undefined' === typeof data) {
         return false
-      }
     }
-  }
-  else if ('object' !== typeof data && 0 < keys.length) {
-    return false
-  }
 
-  return true
+    if ('object' === typeof data) {
+        for (const k of keys) {
+            if (!(k in data)) {
+                return false
+            }
+        }
+    }
+    else if ('object' !== typeof data && 0 < keys.length) {
+        return false
+    }
+
+    return true
 }
 
 export function guard<T>(data: unknown, ...keys: (keyof T)[]): data is T {
-  if (Array.isArray(data)) {
-    return true
-  }
-  return validate<T>(data as T, ...keys)
+    if (Array.isArray(data)) {
+        return true
+    }
+    return validate<T>(data as T, ...keys)
 }
 
 export function guardIterator<T>(data: Array<T>, ...keys: (keyof T)[]): data is Array<T> {
-  if (guard<Generator<InferArrayType<T>>>(data) && typeof data[Symbol.iterator] === 'function') {
-    for (const x of data) {
-      if (!validate<T>(x, ...keys)) {
-        return false
-      }
+    if (guard<Generator<InferArrayType<T>>>(data) && typeof data[Symbol.iterator] === 'function') {
+        for (const x of data) {
+            if (!validate<T>(x, ...keys)) {
+                return false
+            }
+        }
+        return true
     }
-    return true
-  }
-  return false
+    return false
 }

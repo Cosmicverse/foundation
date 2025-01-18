@@ -50,22 +50,22 @@ const timeLog = (label?: string, ...data: unknown[]): void => console.timeLog(la
 const timeStamp = (label?: string): void => console.timeStamp(label)
 const trace = (...data: unknown[]): void => console.log(...data)
 const warn = (...data: unknown[]): void => console.warn(...data)
-const json = (...data: unknown[]) => JSON.stringify(console.log(...data))
+const json = (...data: unknown[]): string => JSON.stringify(console.log(...data))
 
 export const logger = {
-  assert,
-  clear,
-  count,
-  countReset,
-  debug,
-  error,
-  info,
-  log,
-  time,
-  timeEnd,
-  timeLog,
-  timeStamp,
-  trace,
-  warn,
-  json,
+    assert,
+    clear,
+    count,
+    countReset,
+    debug,
+    error,
+    info,
+    log,
+    time,
+    timeEnd,
+    timeLog,
+    timeStamp,
+    trace,
+    warn,
+    json,
 }

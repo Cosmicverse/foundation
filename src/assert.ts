@@ -35,16 +35,16 @@
  */
 
 import {
-  FoundationError,
+    FoundationError,
 } from '@/error'
 
 export class AssertError extends FoundationError {}
 
 export const assert = (statement: boolean, message: string): boolean | never => {
-  if (statement) {
-    return true
-  }
-  else {
-    throw new AssertError(message)
-  }
+    if (statement) {
+        return true
+    }
+    else {
+        throw new AssertError(message)
+    }
 }

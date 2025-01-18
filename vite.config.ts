@@ -31,55 +31,54 @@
  */
 
 import {
-  URL,
-  fileURLToPath,
+    URL,
+    fileURLToPath,
 } from 'node:url'
 
 import {
-  PluginOption,
-  LibraryFormats,
-  ConfigEnv,
-  defineConfig,
-  UserConfigExport,
+    PluginOption,
+    LibraryFormats,
+    ConfigEnv,
+    defineConfig,
+    UserConfigExport,
 } from 'vite'
-
 import dts from 'vite-plugin-dts'
 
 export default ({ mode }: ConfigEnv): UserConfigExport => {
-  const name = process.env.npm_package_name
-  const srcDir = 'src'
-  const entry = `${srcDir}/index.ts`
-  const fileName = 'lib-[format]'
-  const formats: LibraryFormats[] = [ 'es', 'cjs' ]
-  const emptyOutDir = true
-  const minify = 'production' === mode ? 'terser' : false
+    const name = process.env.npm_package_name
+    const srcDir = 'src'
+    const entry = `${srcDir}/index.ts`
+    const fileName = 'lib-[format]'
+    const formats: LibraryFormats[] = [ 'es', 'cjs' ]
+    const emptyOutDir = true
+    const minify = 'production' === mode ? 'terser' : false
 
-  const alias = {
-    '@': fileURLToPath(new URL(srcDir, import.meta.url)),
-  }
+    const alias = {
+        '@': fileURLToPath(new URL(srcDir, import.meta.url)),
+    }
 
-  const plugins = [
-    dts()
-  ] as PluginOption[]
+    const plugins = [
+        dts()
+    ] as PluginOption[]
 
-  return defineConfig({
-    resolve: {
-      alias,
-    },
-    esbuild: {
-      minifyIdentifiers: true,
-      keepNames: true,
-    },
-    plugins,
-    build: {
-      minify,
-      emptyOutDir,
-      lib: {
-        name,
-        entry,
-        formats,
-        fileName,
-      },
-    },
-  })
+    return defineConfig({
+        resolve: {
+            alias,
+        },
+        esbuild: {
+            minifyIdentifiers: true,
+            keepNames: true,
+        },
+        plugins,
+        build: {
+            minify,
+            emptyOutDir,
+            lib: {
+                name,
+                entry,
+                formats,
+                fileName,
+            },
+        },
+    })
 }

@@ -40,21 +40,21 @@ export type IFoundationError = {
 }
 
 export class FoundationError extends Error implements IFoundationError {
-  get name(): string {
-    return this.constructor.name
-  }
+    get name(): string {
+        return this.constructor.name
+    }
 
-  toString(): string {
-    return `[${this.name} ${this.message}]`
-  }
+    toString(): string {
+        return `[${this.name} ${this.message}]`
+    }
 }
 
 export class FoundationTypeError extends TypeError implements IFoundationError {
-  get name(): string {
-    return this.constructor.name
-  }
+    get name(): string {
+        return this.constructor.name
+    }
 
-  toString(): string {
-    return `[${this.name} ${this.message}]`
-  }
+    toString(): string {
+        return `[${this.name} ${this.message}]`
+    }
 }

@@ -39,8 +39,8 @@
  * returned that can can cancel the timeout call.
  */
 export const timeout = (fn: () => void, delay = 25): () => void => {
-  const id = setTimeout(fn, delay)
-  return (): void => clearTimeout(id)
+    const id = setTimeout(fn, delay)
+    return (): void => clearTimeout(id)
 }
 
 /**
@@ -63,19 +63,19 @@ export const timeout = (fn: () => void, delay = 25): () => void => {
  * a non-enumerable property like Object.assign().
  */
 export const assign = <T, U>(target: T, ...sources: U[]): T => {
-  for (const source of sources) {
-    for (const name of Object.getOwnPropertyNames(source)) {
-      const desc = Object.getOwnPropertyDescriptor(source, name)
-      if ('undefined' !== typeof desc) {
-        Object.defineProperty(target, name, desc)
-      }
+    for (const source of sources) {
+        for (const name of Object.getOwnPropertyNames(source)) {
+            const desc = Object.getOwnPropertyDescriptor(source, name)
+            if ('undefined' !== typeof desc) {
+                Object.defineProperty(target, name, desc)
+            }
+        }
+        for (const symbol of Object.getOwnPropertySymbols(source)) {
+            const desc = Object.getOwnPropertyDescriptor(source, symbol)
+            if ('undefined' !== typeof desc) {
+                Object.defineProperty(target, symbol, desc)
+            }
+        }
     }
-    for (const symbol of Object.getOwnPropertySymbols(source)) {
-      const desc = Object.getOwnPropertyDescriptor(source, symbol)
-      if ('undefined' !== typeof desc) {
-        Object.defineProperty(target, symbol, desc)
-      }
-    }
-  }
-  return target
+    return target
 }

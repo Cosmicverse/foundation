@@ -31,35 +31,35 @@
  */
 
 import {
-  it,
-  expect,
-  describe,
+    it,
+    expect,
+    describe,
 } from 'vitest'
 
 import {
-  assert,
-  AssertError,
-  FoundationError,
+    assert,
+    AssertError,
+    FoundationError,
 } from '@/index'
 
 describe('Assert', () => {
-  it('Assert: success', () => {
-    expect(assert(true, 'not a number')).toBeTruthy()
-  })
+    it('Assert: success', () => {
+        expect(assert(true, 'not a number')).toBeTruthy()
+    })
 
-  it('Assert: error', () => {
-    try {
-      expect(assert(false, 'not a number')).toBeTruthy()
-      expect(false).toBeTruthy()
-    }
-    catch (e) {
-      expect(e instanceof FoundationError).toBeTruthy()
-      expect(e instanceof AssertError).toBeTruthy()
+    it('Assert: error', () => {
+        try {
+            expect(assert(false, 'not a number')).toBeTruthy()
+            expect(false).toBeTruthy()
+        }
+        catch (e) {
+            expect(e instanceof FoundationError).toBeTruthy()
+            expect(e instanceof AssertError).toBeTruthy()
 
-      if (e instanceof AssertError) {
-        expect(e.name).toBe('AssertError')
-        expect(e.message).toBe('not a number')
-      }
-    }
-  })
+            if (e instanceof AssertError) {
+                expect(e.name).toBe('AssertError')
+                expect(e.message).toBe('not a number')
+            }
+        }
+    })
 })

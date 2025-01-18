@@ -31,36 +31,36 @@
  */
 
 import {
-  it,
-  expect,
-  describe,
+    it,
+    expect,
+    describe,
 } from 'vitest'
 
 import {
-  guard,
-  Nullable,
-  Optional,
-  Voidable,
-  WritableKeys,
-  ReadonlyKeys,
-  PartialKeys,
-  RequiredKeys,
-  NullableKeys,
-  RestrictedKeys,
-  PartialRecord,
-  KeysForTypes,
-  TypesForKeys,
-  RequiredKeysFor,
-  NullableKeysFor,
-  PartialKeysFor,
-  WritableKeysFor,
-  ReadonlyKeysFor,
-  PickPublic,
-  PickWritable,
-  PickReadonly,
-  PickRequired,
-  PickNullable,
-  PickPartial,
+    guard,
+    Nullable,
+    Optional,
+    Voidable,
+    WritableKeys,
+    ReadonlyKeys,
+    PartialKeys,
+    RequiredKeys,
+    NullableKeys,
+    RestrictedKeys,
+    PartialRecord,
+    KeysForTypes,
+    TypesForKeys,
+    RequiredKeysFor,
+    NullableKeysFor,
+    PartialKeysFor,
+    WritableKeysFor,
+    ReadonlyKeysFor,
+    PickPublic,
+    PickWritable,
+    PickReadonly,
+    PickRequired,
+    PickNullable,
+    PickPartial,
 } from '@/index'
 
 type A = {
@@ -70,319 +70,316 @@ type A = {
 }
 
 class B {
-  private readonly _name: string
-  private readonly _age: number
+    private readonly _name: string
+    private readonly _age: number
 
-  get name(): string {
-    return this._name
-  }
+    get name(): string {
+        return this._name
+    }
 
-  get age(): number {
-    return this._age
-  }
+    get age(): number {
+        return this._age
+    }
 
-  constructor(_name: string,  _age: number) {
-    this._name = _name
-    this._age = _age
-  }
+    constructor(_name: string,  _age: number) {
+        this._name = _name
+        this._age = _age
+    }
 }
 
 describe('Type Defs', () => {
-  it('Nullable', () => {
-    let a: Nullable<number> = 1
+    it('Nullable', () => {
+        let a: Nullable<number> = 1
 
-    expect(a).toBe(1)
+        expect(a).toBe(1)
 
-    a = null
+        a = null
 
-    expect(null).toBe(a)
-  })
+        expect(null).toBe(a)
+    })
 
-  it('Optional', () => {
-    let a: Optional<number> = 1
+    it('Optional', () => {
+        let a: Optional<number> = 1
 
-    expect(a).toBe(1)
+        expect(a).toBe(1)
 
-    a = void 0
+        a = void 0
 
-    expect(void 0).toBe(a)
-  })
+        expect(void 0).toBe(a)
+    })
 
-  it('Voidable', () => {
-    const a = (): Voidable<number> => {
-      return 1
-    }
+    it('Voidable', () => {
+        const a = (): Voidable<number> => {
+            return 1
+        }
 
-    const b = (): ReturnType<typeof a> => {
-      return 1
-    }
+        const b = (): ReturnType<typeof a> => {
+            return 1
+        }
 
-    const c = (): ReturnType<typeof a> => {
-    // statement here
-    }
+        const c = (): ReturnType<typeof a> => {
+            // statement here
+        }
 
-    expect(typeof a).toBe(typeof b)
-    expect(typeof a).toBe(typeof c)
-    expect(typeof b).toBe(typeof c)
-  })
+        expect(typeof a).toBe(typeof b)
+        expect(typeof a).toBe(typeof c)
+        expect(typeof b).toBe(typeof c)
+    })
 
-  it('WritableKeys', () => {
-    const a: WritableKeys<Readonly<A>, 'name' | 'age'> = {
-      name: 'jonathan',
-      age: 2,
-      version: 1,
-    }
+    it('WritableKeys', () => {
+        const a: WritableKeys<Readonly<A>, 'name' | 'age'> = {
+            name: 'jonathan',
+            age: 2,
+            version: 1,
+        }
 
-    a.name = 'daniel'
-    a.age = 1
-    // a.version = 1
+        a.name = 'daniel'
+        a.age = 1
+        // a.version = 1
 
-    expect(guard(a, ...Object.keys(a)))
-  })
+        expect(guard(a, ...Object.keys(a)))
+    })
 
-  it('ReadonlyKeys', () => {
-    const a: ReadonlyKeys<A, 'age'> = {
-      name: 'jonathan',
-      age: 1,
-      version: 2,
-    }
+    it('ReadonlyKeys', () => {
+        const a: ReadonlyKeys<A, 'age'> = {
+            name: 'jonathan',
+            age: 1,
+            version: 2,
+        }
 
-    a.name = 'daniel'
-    // a.age = 1
-    a.version = 1
+        a.name = 'daniel'
+        // a.age = 1
+        a.version = 1
 
-    expect(guard(a, ...Object.keys(a))).toBeTruthy()
-  })
+        expect(guard(a, ...Object.keys(a))).toBeTruthy()
+    })
 
-  it('PartialKeys', () => {
-    const a: PartialKeys<Required<A>, 'age'> = {
-      name: 'daniel',
-      version: 2,
-    }
+    it('PartialKeys', () => {
+        const a: PartialKeys<Required<A>, 'age'> = {
+            name: 'daniel',
+            version: 2,
+        }
 
-    a.name = 'daniel'
-    a.age = 1
-    a.version = 1
+        a.name = 'daniel'
+        a.age = 1
+        a.version = 1
 
-    expect(guard(a, ...Object.keys(a))).toBeTruthy()
-  })
+        expect(guard(a, ...Object.keys(a))).toBeTruthy()
+    })
 
-  it('RequiredKeys', () => {
-    const a: RequiredKeys<Partial<A>, 'age'> = {
-      age: 1,
-    }
+    it('RequiredKeys', () => {
+        const a: RequiredKeys<Partial<A>, 'age'> = {
+            age: 1,
+        }
 
-    a.name = 'daniel'
-    a.age = 1
-    a.version = 1
+        a.name = 'daniel'
+        a.age = 1
+        a.version = 1
 
-    expect(guard(a, ...Object.keys(a))).toBeTruthy()
-  })
+        expect(guard(a, ...Object.keys(a))).toBeTruthy()
+    })
 
-  it('NullableKeys', () => {
-    const a: NullableKeys<A, 'age'> = {
-      name: 'daniel',
-      age: null,
-      version: 1,
-    }
+    it('NullableKeys', () => {
+        const a: NullableKeys<A, 'age'> = {
+            name: 'daniel',
+            age: null,
+            version: 1,
+        }
 
-    expect(guard(a, ...Object.keys(a))).toBeTruthy()
-  })
+        expect(guard(a, ...Object.keys(a))).toBeTruthy()
+    })
 
-  it('RestrictedKeys', () => {
-    const a: RestrictedKeys<A> = {
-      test: 1,
-    }
+    it('RestrictedKeys', () => {
+        const a: RestrictedKeys<A> = {
+            test: 1,
+        }
 
-    // a.name = 'daniel'
-    // a.age = 1
-    // a.version = 1
+        // a.name = 'daniel'
+        // a.age = 1
+        // a.version = 1
 
-    expect(guard(a, ...Object.keys(a))).toBeTruthy()
-  })
+        expect(guard(a, ...Object.keys(a))).toBeTruthy()
+    })
 
-  it('PartialRecord', () => {
-    const a: PartialRecord<'a' | 'b' | 'c', number> = {
-      a: 1,
-      b: 2,
-    }
+    it('PartialRecord', () => {
+        const a: PartialRecord<'a' | 'b' | 'c', number> = {
+            a: 1,
+            b: 2,
+        }
 
-    expect(guard(a, ...Object.keys(a))).toBeTruthy()
-  })
+        expect(guard(a, ...Object.keys(a))).toBeTruthy()
+    })
 
-  it('KeysForTypes', () => {
-    const a: A & {
-    test?: string
-  } = {
-    name: 'daniel',
-    age: 1,
-    version: 1,
-  }
+    it('KeysForTypes', () => {
+        const a: A & {
+          test?: string
+        } = {
+            name: 'daniel',
+            age: 1,
+            version: 1,
+        }
 
-    const fn = (key: KeysForTypes<typeof a>): boolean =>
-      'undefined' !== typeof key
+        const fn = (key: KeysForTypes<typeof a>): boolean =>
+            'undefined' !== typeof key
 
-    expect(fn('name')).toBeTruthy()
-    expect(fn('age')).toBeTruthy()
-    expect(fn('version')).toBeTruthy()
-    expect(fn('test')).toBeTruthy()
-  })
+        expect(a.version).toBe(1)
+        expect(fn('name')).toBeTruthy()
+        expect(fn('age')).toBeTruthy()
+        expect(fn('version')).toBeTruthy()
+        expect(fn('test')).toBeTruthy()
+    })
 
-  it('TypeForKeys', () => {
-    const a: A = {
-      name: 'daniel',
-      age: 1,
-      version: 1,
-    }
+    it('TypeForKeys', () => {
+        const a: A = {
+            name: 'daniel',
+            age: 1,
+            version: 1,
+        }
 
-    const fn = (key: TypesForKeys<typeof a, 'age'>): boolean =>
-      'undefined' !== typeof key
+        const fn = (key: TypesForKeys<typeof a, 'age'>): boolean =>
+            'undefined' !== typeof key
 
-    expect(fn(1)).toBeTruthy()
-    expect(fn(1)).toBeTruthy()
-    expect(fn(1)).toBeTruthy()
-    expect(fn(1)).toBeTruthy()
-  })
+        expect(a.version).toBe(1)
+        expect(fn(1)).toBeTruthy()
+        expect(fn(1)).toBeTruthy()
+        expect(fn(1)).toBeTruthy()
+        expect(fn(1)).toBeTruthy()
+    })
 
-  it('RequiredKeysFor', () => {
-    const a: A & {
-    test?: string
-  } = {
-    name: 'daniel',
-    age: 1,
-    version: 1,
-  }
+    it('RequiredKeysFor', () => {
+        const a: A & {
+          test?: string
+        } = {
+            name: 'daniel',
+            age: 1,
+            version: 1,
+        }
 
-    const fn = (key: RequiredKeysFor<typeof a>): boolean =>
-      'undefined' !== typeof key
+        const fn = (key: RequiredKeysFor<typeof a>): boolean =>
+            'undefined' !== typeof key
 
-    expect(fn('name')).toBeTruthy()
-    expect(fn('age')).toBeTruthy()
-    expect(fn('version')).toBeTruthy()
-  // expect(fn('test')).toBeTruthy()
-  })
+        expect(a.version).toBe(1)
+        expect(fn('name')).toBeTruthy()
+        expect(fn('age')).toBeTruthy()
+        expect(fn('version')).toBeTruthy()
+        // expect(fn('test')).toBeTruthy()
+    })
 
-  it('NullableKeysFor', () => {
-    const a: A & {
-    test: string | null
-  } = {
-    test: null,
-    name: 'daniel',
-    age: 1,
-    version: 1,
-  }
+    it('NullableKeysFor', () => {
+        const a: A & {
+          test: string | null
+        } = {
+            test: null,
+            name: 'daniel',
+            age: 1,
+            version: 1,
+        }
 
-    const fn = (key: NullableKeysFor<typeof a>): boolean =>
-      'undefined' !== typeof key
+        const fn = (key: NullableKeysFor<typeof a>): boolean =>
+            'undefined' !== typeof key
 
-    // expect(fn('name')).toBeTruthy()
-    // expect(fn('age')).toBeTruthy()
-    // expect(fn('version')).toBeTruthy()
-    expect(fn('test')).toBeTruthy()
-  })
+        expect(a.version).toBe(1)
+        expect(fn('test')).toBeTruthy()
+    })
 
-  it('PartialKeysFor', () => {
-    const a: A & {
-    test?: string
-  } = {
-    name: 'daniel',
-    age: 1,
-    version: 1,
-  }
+    it('PartialKeysFor', () => {
+        const a: A & {
+          test?: string
+        } = {
+            name: 'daniel',
+            age: 1,
+            version: 1,
+        }
 
-    const fn = (key: PartialKeysFor<typeof a>): boolean =>
-      'undefined' !== typeof key
+        const fn = (key: PartialKeysFor<typeof a>): boolean =>
+            'undefined' !== typeof key
 
-    // expect(fn('name')).toBeTruthy()
-    // expect(fn('age')).toBeTruthy()
-    // expect(fn('version')).toBeTruthy()
-    expect(fn('test')).toBeTruthy()
-  })
+        expect(a.version).toBe(1)
+        expect(fn('test')).toBeTruthy()
+    })
 
-  it('WritableKeysFor', () => {
-    const a: A & {
-    readonly test: string
-  } = {
-    test: 'hello',
-    name: 'daniel',
-    age: 1,
-    version: 1,
-  }
+    it('WritableKeysFor', () => {
+        const a: A & {
+          readonly test: string
+        } = {
+            test: 'hello',
+            name: 'daniel',
+            age: 1,
+            version: 1,
+        }
 
-    const fn = (key: WritableKeysFor<typeof a>): boolean =>
-      'undefined' !== typeof key
+        const fn = (key: WritableKeysFor<typeof a>): boolean =>
+            'undefined' !== typeof key
 
-    expect(fn('name')).toBeTruthy()
-    expect(fn('age')).toBeTruthy()
-    expect(fn('version')).toBeTruthy()
-  // expect(fn('test')).toBeTruthy()
-  })
+        expect(a.version).toBe(1)
+        expect(fn('name')).toBeTruthy()
+        expect(fn('age')).toBeTruthy()
+        expect(fn('version')).toBeTruthy()
+    })
 
-  it('ReadonlyKeysFor', () => {
-    const a: A & {
-    readonly test: string
-  } = {
-    test: 'hello',
-    name: 'daniel',
-    age: 1,
-    version: 1,
-  }
+    it('ReadonlyKeysFor', () => {
+        const a: A & {
+          readonly test: string
+        } = {
+            test: 'hello',
+            name: 'daniel',
+            age: 1,
+            version: 1,
+        }
 
-    const fn = (key: ReadonlyKeysFor<typeof a>): boolean =>
-      'undefined' !== typeof key
+        const fn = (key: ReadonlyKeysFor<typeof a>): boolean =>
+            'undefined' !== typeof key
 
-    // expect(fn('name')).toBeTruthy()
-    // expect(fn('age')).toBeTruthy()
-    // expect(fn('version')).toBeTruthy()
-    expect(fn('test')).toBeTruthy()
-  })
+        expect(a.version).toBe(1)
+        expect(fn('test')).toBeTruthy()
+    })
 
-  it('PickPublic', () => {
-    const a: PickPublic<B> = {
-      name: 'daniel',
-      age: 1,
-    }
+    it('PickPublic', () => {
+        const a: PickPublic<B> = {
+            name: 'daniel',
+            age: 1,
+        }
 
-    expect(guard(a, ...Object.keys(a))).toBeTruthy()
-  })
+        expect(guard(a, ...Object.keys(a))).toBeTruthy()
+    })
 
-  it('PickWritable', () => {
-    const a: PickWritable<WritableKeys<A, 'version'>> = {
-      version: 1,
-    }
+    it('PickWritable', () => {
+        const a: PickWritable<WritableKeys<A, 'version'>> = {
+            version: 1,
+        }
 
-    expect(guard(a, ...Object.keys(a))).toBeTruthy()
-  })
+        expect(guard(a, ...Object.keys(a))).toBeTruthy()
+    })
 
-  it('PickReadonly', () => {
-    const a: PickReadonly<ReadonlyKeys<A, 'version'>> = {
-      version: 1,
-    }
+    it('PickReadonly', () => {
+        const a: PickReadonly<ReadonlyKeys<A, 'version'>> = {
+            version: 1,
+        }
 
-    expect(guard(a, ...Object.keys(a))).toBeTruthy()
-  })
+        expect(guard(a, ...Object.keys(a))).toBeTruthy()
+    })
 
-  it('PickRequired', () => {
-    const a: PickRequired<RequiredKeys<A, 'version'>> = {
-      version: 1,
-    }
+    it('PickRequired', () => {
+        const a: PickRequired<RequiredKeys<A, 'version'>> = {
+            version: 1,
+        }
 
-    expect(guard(a, ...Object.keys(a))).toBeTruthy()
-  })
+        expect(guard(a, ...Object.keys(a))).toBeTruthy()
+    })
 
-  it('PickNullable', () => {
-    const a: PickNullable<NullableKeys<A, 'version'>> = {
-      version: null,
-    }
+    it('PickNullable', () => {
+        const a: PickNullable<NullableKeys<A, 'version'>> = {
+            version: null,
+        }
 
-    expect(guard(a, ...Object.keys(a))).toBeTruthy()
-  })
+        expect(guard(a, ...Object.keys(a))).toBeTruthy()
+    })
 
-  it('PickPartial', () => {
-    const a: PickPartial<PartialKeys<A, 'version'>> = {
-      version: void 0,
-    }
+    it('PickPartial', () => {
+        const a: PickPartial<PartialKeys<A, 'version'>> = {
+            version: void 0,
+        }
 
-    expect(guard(a, ...Object.keys(a))).toBeTruthy()
-  })
+        expect(guard(a, ...Object.keys(a))).toBeTruthy()
+    })
 })
