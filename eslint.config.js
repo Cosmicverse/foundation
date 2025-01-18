@@ -1,5 +1,6 @@
 import eslintPlugin from '@typescript-eslint/eslint-plugin'
 import eslintParser from '@typescript-eslint/parser'
+import importPlugin from 'eslint-plugin-import'
 
 export default [
   {
@@ -12,7 +13,7 @@ export default [
     },
     plugins: {
       '@typescript-eslint': eslintPlugin,
-      import: require('eslint-plugin-import'),
+      import: importPlugin,
     },
     settings: {
       'import/resolver': {
@@ -35,8 +36,8 @@ export default [
       ],
 
       // General Best Practices
-      'eqeqeq': 'error',
-      'camelcase': 'error',
+      eqeqeq: 'error',
+      camelcase: 'error',
       'no-console': 'error',
       'no-lonely-if': 'error',
 
@@ -51,16 +52,16 @@ export default [
           functions: 'never',
         },
       ],
-      'indent': ['error', 4, { SwitchCase: 1 }],
+      indent: ['error', 4, { SwitchCase: 1 }],
       'no-tabs': 'error',
       'object-curly-spacing': ['error', 'always'],
       'array-bracket-spacing': ['error', 'always'],
-      'curly': ['error', 'all'],
+      curly: ['error', 'all'],
       'template-curly-spacing': 'error',
       'no-trailing-spaces': 'error',
       'space-before-blocks': 'error',
-      'semi': ['error', 'never'],
-      'quotes': ['error', 'single', { avoidEscape: true }],
+      semi: ['error', 'never'],
+      quotes: ['error', 'single', { avoidEscape: true }],
       'object-curly-newline': [
         'error',
         {
